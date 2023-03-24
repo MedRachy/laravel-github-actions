@@ -1,12 +1,9 @@
 name: Testing
-run-name: ${{ github.actor }} is running the app test
+run-name: ${{ github.actor }} is running the test after pushing
 on: [push]
 jobs:
   Test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-version: ["8.0"]
     services:
       mysql:
         image: mysql:8.0

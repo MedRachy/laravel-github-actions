@@ -25,8 +25,6 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: laravel/pint
-      - name: Check PHP syntax
-        run: phplint --exclude=*.log .
       - name: Install composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Run tests

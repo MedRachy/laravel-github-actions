@@ -26,6 +26,8 @@ jobs:
           php-version: ${{ matrix.php-version }}
       - name: Install composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Run database migrations
+        run: php artisan migrate
       - name: Run tests
         env:
           DB_HOST: 127.0.0.1

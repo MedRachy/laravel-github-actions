@@ -7,5 +7,5 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Run Test
-        uses: nathanheffley/laravel-phpunit-action@master
+      - name: Laravel Test Action
+        uses: hdev14/laravel-test-action@v1

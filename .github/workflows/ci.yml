@@ -4,8 +4,35 @@ on: [push]
 jobs:
   Test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ["8.0"]
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: test_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Laravel Test Action
-        uses: hdev14/laravel-test-action@v1
+      - name: Setup PHP
+        id: setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+      - name: Install composer dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Run database migrations
+        run: php artisan migrate --env=testing
+      - name: Run tests
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+          DB_USERNAME: root
+          DB_PASSWORD: ""
+          DB_DATABASE: test_db
+        run: php artisan test --env=testing

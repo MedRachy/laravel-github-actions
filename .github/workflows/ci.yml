@@ -1,12 +1,12 @@
 name: Testing
-run-name: ${{ github.actor }} is running the test suite
+run-name: ${{ github.actor }} is running the test
 on: [push]
 jobs:
   Test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['8.0']
+        php-version: ["8.0"]
     services:
       mysql:
         image: mysql:8.0
@@ -24,7 +24,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          tools: laravel/pint
       - name: Install composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Run tests
@@ -32,6 +31,6 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           DB_USERNAME: root
-          DB_PASSWORD: ''
+          DB_PASSWORD: ""
           DB_DATABASE: test_db
         run: php artisan test

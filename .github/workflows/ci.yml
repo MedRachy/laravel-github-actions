@@ -27,7 +27,7 @@ jobs:
       - name: Install composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Run database migrations
-        run: php artisan migrate
+        run: php artisan migrate --env=testing
       - name: Run tests
         env:
           DB_HOST: 127.0.0.1
@@ -35,4 +35,4 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: ""
           DB_DATABASE: test_db
-        run: php artisan test
+        run: php artisan test --env=testing

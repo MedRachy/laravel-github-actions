@@ -1,6 +1,6 @@
-name: Testing
-run-name: ${{ github.actor }} is running the test after pushing
-on: [push]
+name: Build and Test
+run-name: ${{ github.actor }} build and run the PHPUnit test
+on: [push, workflow_dispatch]
 jobs:
   Test:
     runs-on: ubuntu-latest
@@ -25,4 +25,13 @@ jobs:
       - name: Migrate Database
         run: php artisan migrate --seed
       - name: Run tests
-        run: php artisan test
+        run: php artisan test --coverage-clover=coverage.xml
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+        with:
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          # files: ./coverage1.xml,./coverage2.xml # optional
+          # flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)

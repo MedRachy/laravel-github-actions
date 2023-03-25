@@ -9,8 +9,8 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-        php-version: 8.0
-        tools: laravel/pint
+          php-version: 8.0
+          tools: laravel/pint
 
       - name: Check out repository code
         uses: actions/checkout@v3

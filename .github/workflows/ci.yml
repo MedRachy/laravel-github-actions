@@ -2,7 +2,7 @@ name: Build and Test
 run-name: ${{ github.actor }} build and run the PHPUnit test
 on: [workflow_dispatch]
 jobs:
-  Test:
+  Build-Test:
     runs-on: ubuntu-latest
 
     services:
@@ -16,6 +16,11 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          
       - name: Check out repository code
         uses: actions/checkout@v3
 

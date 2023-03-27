@@ -1,6 +1,6 @@
 name: Build and Test
 run-name: ${{ github.actor }} build and run the PHPUnit test
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 jobs:
   Test:
     runs-on: ubuntu-latest

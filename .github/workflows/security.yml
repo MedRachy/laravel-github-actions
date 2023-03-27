@@ -1,0 +1,17 @@
+name: Security checks
+run-name: ${{ github.actor }} run security checks
+on: [push, workflow_dispatch]
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Install composer dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      # Run PHP Security Checker
+      - name: Run PHP Security Checker
+        run: php security-checker.phar security:check composer.lock

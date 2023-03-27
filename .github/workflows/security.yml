@@ -17,7 +17,10 @@ jobs:
       - name: Install composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
         
-      - name: The PHP Security Checker
+      - name: Find security vulnerabilities in your PHP
+        uses: psalm/psalm-github-security-scan@1.2.1
+        
+      - name: Checks composer.json for known vulnerabilities
         uses: symfonycorp/security-checker-action@v4
         with:
-          path: composer.lock
+          lock: ./composer.lock

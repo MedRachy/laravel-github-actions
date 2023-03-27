@@ -6,6 +6,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+
       - name: Check out repository code
         uses: actions/checkout@v3
 
@@ -15,3 +20,14 @@ jobs:
       # Run PHP Security Checker
       - name: Run PHP Security Checker
         run: php security-checker.phar security:check composer.lock
+
+      - name: Run Security Checks
+        uses: sensiolabs/security-checker-action@v3
+        with:
+          path: composer.lock
+
+      - name: Run Laravel Security Check
+        uses: beyondcode/laravel-security-check@master
+        with:
+          format: table
+          exclude-dev: true

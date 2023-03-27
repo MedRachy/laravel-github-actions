@@ -20,14 +20,3 @@ jobs:
       # Run PHP Security Checker
       - name: Run PHP Security Checker
         run: php security-checker.phar security:check composer.lock
-
-      - name: Run Security Checks
-        uses: sensiolabs/security-checker-action@v3
-        with:
-          path: composer.lock
-
-      - name: Run Laravel Security Check
-        uses: beyondcode/laravel-security-check@master
-        with:
-          format: table
-          exclude-dev: true
